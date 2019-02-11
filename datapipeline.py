@@ -25,21 +25,19 @@ class API_Worker():
     def __init__(self, region, api_token):
         self.min_sslr = 1.2 # min seconds since last request
         self.lrts = curr_timestamp() # last request timestamp
-        self.api_token = api_token
+        self.headers = {"X-Riot-Token": api_token}
         self.api_url = f"https://{region}.api.riotgames.com"
     def request(self, resource):
         # wait needed time to not exceed the rate limit
         sleep(max(
-            + self.min_sslr
+            - curr_timestamp()
             + self.lrts
-            - curr_timestamp(), 0.0))
+            + self.min_sslr, 0.0))
         self.lrts = curr_timestamp()
 
         response, status = None, None
         try:
-            request = urllib.request.Request(
-                resource,
-                headers={"X-Riot-Token": self.api_token})
+            request = urllib.request.Request(resource, headers=self.headers)
             response = urllib.request.urlopen(request).read().decode('utf-8')
             status = 200
         except urllib.error.HTTPError as error:
