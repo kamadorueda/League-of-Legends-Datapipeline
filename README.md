@@ -1,16 +1,16 @@
 # League-of-Legends-Datapipeline
 A python data pipeline for the League of Legends game.
 
-it fetches sequentially:
+It will fetch sequentially:
 - match information: `/lol/match/v4/matches/{matchId}`
 - match timeline: `/lol/match/v4/timelines/by-match/{matchId}`
 
-and produces an stream of formatted output that can be loaded to a data warehouse
+And produces an stream of formatted output that can be loaded to a data warehouse
 like Amazon Redshift, or a MySQL database.
 
 # How to use
-First create an initial `state.json` file,
-you can leave game_timestamp as 0.0 for the first sync:
+First create an initial `state.json` file.
+Leave `game_timestamp` as 0.0 for the first sync:
 
 ```json
 {
