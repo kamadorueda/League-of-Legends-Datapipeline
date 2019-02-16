@@ -10,12 +10,10 @@ like Amazon Redshift, or a MySQL database.
 
 # How to use
 First create an initial `state.json` file.
-Leave `game_timestamp` as 0.0 for the first sync:
 
 ```json
 {
     "match_id": 1000000000,
-    "game_timestamp": 0.0,
     "region": "na1",
     "api_token": "RGAPI-XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX"
 }
