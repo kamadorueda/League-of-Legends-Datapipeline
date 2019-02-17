@@ -22,7 +22,11 @@ First create an initial `state.json` file.
 Now you are ready to run the data pipeline:
 
 ```bash
-$ cat state.json | ./datapipeline.py > new_state.json && mv --force {new_,}state.json
+# if the pipeline went well
+if (cat state.json | ./datapipeline.py) > new_state.json; then
+  # update the state
+  mv new_state.json state.json
+fi
 ```
 
 This will use the state file that you just created,
