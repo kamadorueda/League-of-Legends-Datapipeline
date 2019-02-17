@@ -1,2 +1,6 @@
-# state file
+# state files
 state.json
+new_state.json
+
+# python temp files
+__pycache__

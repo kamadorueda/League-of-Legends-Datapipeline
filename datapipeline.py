@@ -4,12 +4,10 @@ import io
 import os
 import sys
 import json
+import structura
 import urllib.request
 from time import sleep
 from time import time as curr_timestamp
-
-if not os.path.isdir("data"):
-    os.makedirs("data")
 
 
 def json_as_string(obj):
@@ -24,15 +22,16 @@ def print_stdout(message):
     print(message, file=sys.stdout, flush=True)
 
 
+def process(endpoint_name, response):
+    data = json.loads(response)
+    for table, record in structura.linearize(endpoint_name, data):
+        print_stderr(json.dumps({"table": table, "record": record}, indent=2))
+
+
 def stop_pipeline(state, exit_code):
     print_stdout(json_as_string(state))
     print_stderr(json_as_string(state))
     exit(exit_code)
-
-
-def write_to_file(match_id, data_source, data):
-    with open(f"data/{match_id}.{data_source}.json", "w") as response:
-        response.write(data)
 
 
 class API_Worker():
@@ -97,7 +96,7 @@ def main():
             status, response = endpoint_wrapper(match_id)
             print_stderr(f"INFO: [{endpoint_name}] [{match_id}] [{status}]")
             if status == 200:
-                write_to_file(match_id, endpoint_name, response)
+                process(endpoint_name, response)
             elif not status == 404:
                 stop_pipeline(state, exit_code=1)
 
