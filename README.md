@@ -36,6 +36,7 @@ And output a final state to stdout:
 ```
 
 if successful the new state will be some match IDs ahead of the initial state, and the data will be stored locally.
+
 if not successful the new state will be the same initial state.
 
 Putting it all together:
