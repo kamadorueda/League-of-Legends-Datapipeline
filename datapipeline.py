@@ -5,6 +5,7 @@ import os
 import sys
 import json
 import structura
+import progressive
 import urllib.request
 from time import sleep
 from time import time as curr_timestamp
@@ -24,8 +25,8 @@ def print_stdout(message):
 
 def process(endpoint_name, response):
     data = json.loads(response)
-    for table, record in structura.linearize(endpoint_name, data):
-        print_stderr(json.dumps({"table": table, "record": record}, indent=2))
+    for table_name, record in structura.linearize(endpoint_name, data):
+        progressive.write_record_to_file(table_name, record)
 
 
 def stop_pipeline(state, exit_code):

@@ -2,5 +2,10 @@
 state.json
 new_state.json
 
+# output folders
+schemas/
+records/
+data/
+
 # python temp files
-__pycache__
+__pycache__/
